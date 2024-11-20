@@ -17,16 +17,15 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
-    private EditText nameLogin, telLogin;
+    private EditText nameLogin, password;
     private Button buttonLogin;
     private DatabaseHelper dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        SharedPreferences sharedPre = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
+        SharedPreferences sharedPre = getSharedPreferences("ref", Context.MODE_PRIVATE);
         String con = sharedPre.getString("connected", "false");
-        Log.d("SharedPreferences", "Username: " + con);
         if(con.equals("true")){
             Intent intent = new Intent(MainActivity.this, ShowContact.class);
             startActivity(intent);
@@ -34,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_main);
         nameLogin = findViewById(R.id.nameLogin);
-        telLogin = findViewById(R.id.telLogin);
+        password = findViewById(R.id.telLogin);
         buttonLogin = findViewById(R.id.buttonLogin);
         dbHelper = new DatabaseHelper(this);
 
@@ -43,22 +42,19 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Get user input
                 String name = nameLogin.getText().toString().trim();
-                String phone = telLogin.getText().toString().trim();
+                String pass = password.getText().toString().trim();
 
-                // Validate the credentials against the database
-                if (name.equals("hadil")&&phone.equals("12345678")) {//dbHelper.checkUser(name, phone)
+                if (name.equals("hadil")&&pass.equals("12345678")) {
                     // Successful login
-//                    System.out.println("hi");
-                    SharedPreferences sharedPref = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
+                    SharedPreferences sharedPref = getSharedPreferences("ref", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putString("connected", "true");
                     editor.apply();
                     Intent intent = new Intent(MainActivity.this, ShowContact.class);
                     startActivity(intent);
-                    finish(); // Close the login activity
+                    finish();
                 } else {
-                    // Show an error message if the credentials are incorrect
-                    Toast.makeText(MainActivity.this, "Data incorrect", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Data  incorrect", Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -53,14 +53,7 @@ public class ContactRecyclerAdapter extends RecyclerView.Adapter< ContactRecycle
         holder.textViewName.setText(c.getName());
         holder.textViewTel.setText(c.getTel());
         holder.textViewNickname.setText(c.getNickname());
-//        holder.buttonCall.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent callIntent = new Intent(Intent.ACTION_DIAL);
-//                callIntent.setData(Uri.parse("tel:" + c.getTel()));
-//                con.startActivity(callIntent);
-//            }
-//        });
+
         holder.buttonCall.setOnClickListener(v -> {
             if (ActivityCompat.checkSelfPermission(con, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                 // Request permission if not already granted
@@ -72,16 +65,7 @@ public class ContactRecyclerAdapter extends RecyclerView.Adapter< ContactRecycle
                 con.startActivity(callIntent);
             }
         });
-//        holder.buttonEdit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(con, EditContact.class);
-//                intent.putExtra("USER_ID", String.valueOf(c.getId()));
-//                intent.putExtra("USER_NAME", c.getName());
-//                intent.putExtra("USER_TEL", c.getTel());
-//                con.startActivity(intent);
-//            }
-//        });
+
         holder.buttonEdit.setOnClickListener(v -> showEditDialog(holder.getAdapterPosition(), c));
         holder.buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,47 +143,7 @@ public class ContactRecyclerAdapter extends RecyclerView.Adapter< ContactRecycle
             buttonCall = itemView.findViewById(R.id.buttonCall);
             buttonEdit = itemView.findViewById(R.id.buttonEdit);
             buttonDelete = itemView.findViewById(R.id.buttonDelete);
-//            buttonCall.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    int index=getAdapterPosition();
-//                    User user=data.get(index);
-//                    Intent callIntent = new Intent(Intent.ACTION_DIAL);
-//                    callIntent.setData(Uri.parse("tel:" + user.getTel()));
-//
-//                }
-//            });
-//            buttonEdit.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    int index=getAdapterPosition();
-//                    User user=data.get(index);
-//                    Intent intent = new Intent(con, EditContact.class);
-//                    intent.putExtra("USER_ID", String.valueOf(user.getId()));
-//                    intent.putExtra("USER_NAME", user.getName());
-//                    intent.putExtra("USER_TEL", user.getTel());
-//                    con.startActivity(intent);
-//                }
-//            });
-//            buttonDelete.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    int index=getAdapterPosition();
-//                    User user=data.get(index);
-//                    new AlertDialog.Builder(con)
-//                            .setTitle("Delete Confirmation")
-//                            .setMessage("Are you sure you want to delete this user?")
-//                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int which) {
-//                                    db.deleteData(String.valueOf(user.getId()));
-//                                    data.remove(index);
-//                                    notifyDataSetChanged();
-//                                }
-//                            })
-//                            .setNegativeButton("No", null)
-//                            .show();
-//                }
-//            });
+
         }
     }
     @Override
@@ -211,11 +155,11 @@ public class ContactRecyclerAdapter extends RecyclerView.Adapter< ContactRecycle
                 ArrayList<User> filteredList = new ArrayList<>();
 
                 if (charString.isEmpty()) {
-                    filteredList.addAll(dataFull); // No filter applied, return full list
+                    filteredList.addAll(dataFull);
                 } else {
                     for (User user : dataFull) {
                         if (user.getName().toLowerCase().contains(charString.toLowerCase()) ||
-                                user.getTel().contains(charString) || // You can also search by telephone number
+                                user.getTel().contains(charString) ||
                                 user.getNickname().toLowerCase().contains(charString.toLowerCase())) {
                             filteredList.add(user);
                         }

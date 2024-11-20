@@ -24,13 +24,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + TABLE_NAME + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, TEL TEXT, NICKNAME TEXT)");
     }
     public void deleteAllRows() {
-        SQLiteDatabase db = this.getWritableDatabase(); // Get a writable database
+        SQLiteDatabase db = this.getWritableDatabase();
         try {
-            db.execSQL("DELETE FROM "+TABLE_NAME); // Replace with your actual table name
+            db.execSQL("DELETE FROM "+TABLE_NAME);
         } catch (Exception e) {
             Log.e("Database Error", "Error deleting rows: " + e.getMessage());
         } finally {
-            db.close(); // Close the database
+            db.close();
         }
     }
     @Override
@@ -46,7 +46,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL_4, nickname);
 //        getTableSchema(TABLE_NAME);
         long result = db.insert(TABLE_NAME, null, contentValues);
-        Log.i("azerty","p");
         return result != -1;
     }
     public void getTableSchema(String tableName) {

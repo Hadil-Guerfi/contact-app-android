@@ -29,7 +29,6 @@ public class ShowContact extends AppCompatActivity {
     ImageView imgAddUser,logout;
     RecyclerView listViewUsers;
     SearchView searchView;
-//    UserAdapter userAdapter;
     ArrayList<User> userList;
     ContactRecyclerAdapter adapter;
 
@@ -49,7 +48,6 @@ public class ShowContact extends AppCompatActivity {
         ld();
         adapter = new ContactRecyclerAdapter(this, userList, myDb);
         listViewUsers.setAdapter(adapter);
-//        loadData();
         imgAddUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,7 +58,7 @@ public class ShowContact extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences sharedPref = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getSharedPreferences("ref", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("connected", "false");
                 editor.apply();
@@ -77,7 +75,6 @@ public class ShowContact extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                Log.i("searching",newText);
                 adapter.getFilter().filter(newText);
                 return false;
             }
@@ -90,8 +87,6 @@ public class ShowContact extends AppCompatActivity {
             return;
         }
         while (res.moveToNext()) {
-            Log.i("azerty",""+res.getCount());
-            Log.i("azerty",""+res.getCount());
             int id = res.getInt(0);
             String name = res.getString(1);
             String phone = res.getString(2);
@@ -106,8 +101,6 @@ public class ShowContact extends AppCompatActivity {
             return;
         }
         while (res.moveToNext()) {
-            Log.i("azerty",""+res.getCount());
-            Log.i("azerty",""+res.getCount());
             int id = res.getInt(0);
             String name = res.getString(1);
             String phone = res.getString(2);

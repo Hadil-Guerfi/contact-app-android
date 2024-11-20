@@ -31,7 +31,6 @@ public class EditContact extends AppCompatActivity {
         editNickname = findViewById(R.id.updateTextNickname);
         btnUpdate = findViewById(R.id.buttonUpdate);
 
-        // Recevoir les données de l'utilisateur à modifier
         Intent intent = getIntent();
         userId = intent.getStringExtra("USER_ID");
         editName.setText(intent.getStringExtra("USER_NAME"));
@@ -48,7 +47,7 @@ public class EditContact extends AppCompatActivity {
                 myDb.updateData(userId, editName.getText().toString(), editTel.getText().toString(), editNickname.getText().toString());
                 Intent intent = new Intent(EditContact.this, ShowContact.class);
                 startActivity(intent);
-                finish(); // Fermer l'activité après la mise à jour
+                finish();
             }
         });
     }
